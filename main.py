@@ -22,5 +22,8 @@ for i in range(3):
     with open(os.path.join(temp_dir.name, 'example.txt'), 'w') as file:
         file.write("Hello, Temporary World!")
 
-# Temporary directories and their contents are automatically cleaned up if cleanup_enabled is True
-print("Temporary directories no longer exist:", not any(os.path.exists(temp_dir.name) for temp_dir in temp_dirs))
+# Check if temporary directories exist based on the value of cleanup_enabled
+temp_dirs_exist = any(os.path.exists(temp_dir.name) for temp_dir in temp_dirs) if cleanup_enabled else all(os.path.exists(temp_dir.name) for temp_dir in temp_dirs)
+
+# Print the appropriate message based on temp_dirs_exist
+print("Temporary directories no longer exist:" if cleanup_enabled else "Temporary directories still exist")
